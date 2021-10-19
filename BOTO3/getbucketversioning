@@ -1,0 +1,19 @@
+
+import boto3
+import boto3.session
+import requests
+
+session = boto3.session.Session(profile_name='default')
+endpoint = 'https://dc1-g1:8082'
+
+
+# Ignore SSL verification (do not use in production)
+s3 = session.resource(service_name='s3', endpoint_url=endpoint, verify=False)
+
+from requests.packages.urllib3.exceptions import InsecureRequestWarning
+requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
+
+
+for bucket in s3.buckets.all():
+	bucket_versioning = s3.BucketVersioning(bucket.name)
+	print ("Bucket Name: " + bucket.name +  ", Versioning Status:" + str(bucket_versioning.status))
