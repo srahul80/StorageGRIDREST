@@ -38,6 +38,7 @@ sg_tenants = sg_info(sg_endpoint+ '/grid/accounts', auth_token)
 def sg_post(sg_endpoint, body, auth_token):
 	return requests.post(sg_endpoint,data=json.dumps(body), headers={'accept': 'application/json', 'authorization': 'Bearer {}'.format(auth_token)},verify=False).json()['data']
 
+# Tenant json with federated-group access to an existing AD.
 
 sgtenant="""{
   "name": "RESTAPI_demo1",
